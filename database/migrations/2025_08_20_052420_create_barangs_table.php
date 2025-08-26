@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string("nama_barang");
             $table->string('kode_inventaris');
-            $table->integer('kategori_id');
-            $table->integer('ruangan_id');
+            $table->integer('kategori_id')->constrained('kategoris')->onDelete('cascade');
+            $table->integer('ruangan_id')->constrained('ruangans')->onDelete('cascade');
             $table->integer('tahun_pengadaan');
             $table->string('sumber_dana');
             $table->string('kondisi');         
