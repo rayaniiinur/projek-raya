@@ -1,66 +1,108 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# Projek Raya
 
-## About Laravel
+**Projek sederhana untuk manajemen aset** — aplikasi CRUD berbasis Laravel untuk mengelola `tanah`, `bangunan`, `ruangan`, `kategori`, `barang`, dan `users` (dengan middleware admin).
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+**Status:** In development
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+**Stack:** PHP (Laravel), MySQL (atau compatible), Composer, Node.js (optional untuk asset build)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+**Ringkasan:**
+- Aplikasi ini menyediakan antarmuka CRUD untuk beberapa model aset: `Tanah`, `Bangunan`, `Ruangan`, `Kategori`, dan `Barang`.
+- Terdapat middleware `IsAdmin` yang membatasi route `users` hanya untuk admin.
+- Route utama didefinisikan di `routes/web.php` (lihat file untuk detail route resource-style).
 
-## Learning Laravel
+**Fitur utama**
+- CRUD untuk `tanah`, `bangunan`, `ruangan`, `kategori`, `barang`.
+- Management user terbatas untuk admin (middleware `IsAdmin`).
+- Seeder dan migrations untuk skema dasar (lihat folder `database/`).
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+**Persyaratan**
+- PHP >= 8.1
+- Composer
+- MySQL / MariaDB atau database lain yang didukung Laravel
+- Node.js & npm (opsional, untuk build asset)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+**Instalasi (Windows PowerShell)**
+Clone repo dan masuk ke direktori proyek:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```powershell
+git clone <repo-url> projek-raya
+Set-Location projek-raya
+```
 
-## Laravel Sponsors
+Install dependensi PHP:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```powershell
+composer install
+```
 
-### Premium Partners
+Salin file environment dan generate app key:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+```powershell
+Copy-Item -Path .env.example -Destination .env
+php artisan key:generate
+```
 
-## Contributing
+Atur koneksi database di file `.env` (ubah `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`). Setelah konfigurasi DB selesai, jalankan migrasi dan seeder:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```powershell
+php artisan migrate --seed
+```
 
-## Code of Conduct
+Jika Anda menggunakan asset (CSS/JS) yang dibangun lewat Vite:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```powershell
+npm install
+npm run dev
+```
 
-## Security Vulnerabilities
+Menjalankan server development:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```powershell
+php artisan serve --host=127.0.0.1 --port=8000
+```
 
-## License
+Lalu buka `http://127.0.0.1:8000` di browser.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+**Routes penting (ringkasan dari `routes/web.php`)**
+- `GET /tanah` — index `TanahController@index`
+- `GET /tanah/create` — form create
+- `POST /tanah` — store
+- `GET /tanah/{id}/edit` — edit
+- `PUT /tanah/{id}` — update
+- `DELETE /tanah/{id}` — destroy
+
+- `GET /bangunan`, `/ruangan`, `/kategori`, `/barang` — route CRUD serupa
+
+- `users` routes berada dalam middleware `IsAdmin` (lihat `routes/web.php` untuk daftar lengkap)
+
+**Catatan pengembangan**
+- Model-model dasar ada di `app/Models/` (mis. `Tanah.php`, `Bangunan.php`, `Ruangan.php`, dll).
+- Controller ada di `app/Http/Controllers/`.
+- Seeder dan factory tersedia di `database/seeders` dan `database/factories`.
+
+**Testing**
+Jalankan test suite (jika tersedia):
+
+```powershell
+./vendor/bin/phpunit
+```
+
+**Troubleshooting umum**
+- Error route tidak ditemukan (mis. `Route [user.index] not defined`) biasanya berarti ada pemanggilan route dengan nama yang salah. Periksa file blade/redirect yang memanggil `route('user.index')` dan pastikan nama route di `routes/web.php` cocok (dalam repo ini route users dinamai `users.index`).
+
+**Kontribusi**
+- Buat branch feature dari `main`.
+- Buka PR dengan deskripsi perubahan.
+
+**Lisensi**
+- Proyek ini mengikuti lisensi MIT (sesuai dependensi Laravel). Sesuaikan jika perlu.
+
+---
+
+Jika Anda ingin, saya bisa:
+- Menjalankan pengecekan cepat untuk memastikan route nama konsisten.
+- Menambahkan badges CI atau instruksi deploy.
+
+Beritahu saya langkah berikutnya yang Anda inginkan.

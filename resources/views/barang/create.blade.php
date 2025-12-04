@@ -72,11 +72,21 @@
             </div>
 
             <div class="mb-2">
-                <label class="form-label">Kode Inventaris</label>
-                <input type="text" name="kode_inventaris"
-                       class="form-control @error('kode_inventaris') is-invalid @enderror"
-                       value="{{ old('kode_inventaris') }}">
-                @error('kode_inventaris')
+                <label class="form-label">Sumber Dana</label>
+                <input type="text" name="sumber_dana"
+                       class="form-control @error('sumber_dana') is-invalid @enderror"
+                       value="{{ old('sumber_dana') }}">
+                @error('sumber_dana')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+
+             <div class="mb-2">
+                <label class="form-label">Kondisi</label>
+                <input type="text" name="kondisi"
+                       class="form-control @error('kondisi') is-invalid @enderror"
+                       value="{{ old('kondisi') }}">
+                @error('kondisi')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>

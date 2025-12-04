@@ -5,6 +5,7 @@ use App\Http\Controllers\BangunanController;
 use App\Http\Controllers\RuanganController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\UserController;
 // use App\Models\Barang; ini dihapus
 use Illuminate\Support\Facades\Route;
 
@@ -55,3 +56,12 @@ Route::post('/barang', [BarangController::class, 'store'])->name('barang.store')
 Route::get('/barang/{id}/edit', [BarangController::class, 'edit'])->name('barang.edit');
 Route::put('/barang/{id}', [BarangController::class, 'update'])->name('barang.update');
 Route::delete('/barang/{id}', [BarangController::class, 'destroy'])->name('barang.destroy');
+
+Route::middleware([\App\Http\Middleware\IsAdmin::class])->group(function () {
+Route::get('/users', [\App\Http\Controllers\UserController::class, 'index'])->name('users.index');
+Route::get('/users/create', [\App\Http\Controllers\UserController::class, 'create'])->name('users.create');
+Route::post('/users', [\App\Http\Controllers\UserController::class, 'store'])->name('users.store');
+Route::get('/users/{id}/edit', [\App\Http\Controllers\UserController::class, 'edit'])->name('users.edit');
+Route::put('/users/{id}', [\App\Http\Controllers\UserController::class, 'update'])->name('users.update');
+Route::delete('/users/{id}', [\App\Http\Controllers\UserController::class, 'destroy'])->name('users.destroy');
+        });

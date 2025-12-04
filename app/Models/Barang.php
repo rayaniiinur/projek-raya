@@ -19,4 +19,15 @@ class Barang extends Model
         'sumber_dana',
         'kondisi'
     ];
+
+public function kategori()
+    {
+        return $this->belongsTo(Kategori::class);
+    }
+
+    // Relasi: Barang belongsTo Ruangan
+    public function ruangan()
+    {
+        return $this->belongsTo(Ruangan::class);
+    }
 }

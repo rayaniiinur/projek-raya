@@ -1,13 +1,14 @@
 @extends('layouts.app')
 
-@section('title', 'Login')
+@section('title', 'Register')
 
 @section('content')
 
 <style>
 /* ---------------------------------------------------
-   LOGIN PAGE STYLE — Modern Purple Gradient
+   REGISTER PAGE STYLE — identical to login style
 --------------------------------------------------- */
+
 .login-wrapper {
     max-width: 480px;
     margin: 50px auto;
@@ -24,14 +25,14 @@
 .login-title {
     font-size: 26px;
     font-weight: 700;
-    color: #1E3A8A; /* Deep blue */
+    color: #1E3A8A;
     text-align: center;
     margin-bottom: 10px;
 }
 
 .login-description {
     text-align: center;
-    color: #64748b; /* slate */
+    color: #64748b;
     margin-bottom: 20px;
     font-size: 14px;
 }
@@ -47,7 +48,7 @@
 }
 
 .form-control-modern:focus {
-    border-color: #8b5cf6; /* purple */
+    border-color: #8b5cf6;
     box-shadow: 0 0 0 3px rgba(139,92,246,0.25);
     outline: none;
 }
@@ -70,7 +71,6 @@
     transform: translateY(-2px);
 }
 
-/* Button Outline */
 .btn-outline-modern {
     width: 100%;
     padding: 12px;
@@ -110,12 +110,8 @@
 <div class="login-wrapper">
     <div class="login-card">
 
-        <h2 class="login-title">Selamat Datang</h2>
-        <p class="login-description">Silakan login untuk melanjutkan ke dashboard</p>
-
-        @if(session('success'))
-            <div class="alert alert-success">{{ session('success') }}</div>
-        @endif
+        <h2 class="login-title">Buat Akun Baru</h2>
+        <p class="login-description">Daftar untuk mulai menggunakan aplikasi</p>
 
         @if($errors->any())
             <div class="alert alert-danger">
@@ -127,8 +123,14 @@
             </div>
         @endif
 
-        <form action="{{ url('/login') }}" method="post">
+        <form action="{{ route('register') }}" method="post">
             @csrf
+
+            <div class="mb-3">
+                <label>Nama</label>
+                <input type="text" name="name" value="{{ old('name') }}"
+                       class="form-control-modern" placeholder="Masukkan nama...">
+            </div>
 
             <div class="mb-3">
                 <label>Email</label>
@@ -142,10 +144,17 @@
                        class="form-control-modern" placeholder="Masukkan password...">
             </div>
 
-            <button type="submit" class="btn-primary-modern">Login</button>
+            <div class="mb-3">
+                <label>Konfirmasi Password</label>
+                <input type="password" name="password_confirmation"
+                       class="form-control-modern" placeholder="Masukkan ulang password...">
+            </div>
 
-            <p class="text-small">Belum punya akun?
-                <a href="{{ route('register') }}">Daftar sekarang</a>
+            <button type="submit" class="btn-primary-modern">Register</button>
+
+            <p class="text-small">
+                Sudah punya akun?
+                <a href="{{ route('login') }}">Login di sini</a>
             </p>
         </form>
 

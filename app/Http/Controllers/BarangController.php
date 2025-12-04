@@ -32,7 +32,7 @@ class BarangController extends Controller
             'kode_inventaris' => 'required|string',
             'kategori_id' => 'required|string|exists:kategori,id',
             'ruangan_id' => 'required|string|exists:ruangan,id',
-            'tahun_pengadaan' => 'required|string|exists:tanah',
+            'tahun_pengadaan' => 'required|string',
             'sumber_dana' => 'required|string',
             'kondisi' => 'required|string',
         ]);
