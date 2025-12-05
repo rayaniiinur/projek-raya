@@ -15,13 +15,21 @@
         <div class="collapse navbar-collapse" id="navbarNav">
 
             <!-- Left -->
+             
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                @guest
                 <li class="nav-item">
-                    <a class="nav-link text-white fw-semibold" href="#login">Login</a>
+                    <a class="nav-link text-white fw-semibold" href="{{ route('login') }}">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white fw-semibold" href="#register">Register</a>
+                    <a class="nav-link text-white fw-semibold" href="{{ route('register') }}">Register</a>
                 </li>
+                @endguest
+                @auth
+                <li class="nav-item">
+                    <a class="nav-link text-white fw-semibold" href="{{ route('logout') }}">Logout</a>
+                </li>
+                @endauth    
             </ul>
 
             <!-- Right -->

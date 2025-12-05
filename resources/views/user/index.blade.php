@@ -5,11 +5,11 @@
 @section('content')
 
 {{-- Tambah User (hanya admin) --}}
-@if(auth()->check() && auth()->user()->isAdmin())
+@auth
 <div>
     <a href="{{ route('users.create') }}" class="btn-add">Tambah</a>
 </div>
-@endif
+@endauth
 
 {{-- TABLE --}}
 <table class="table-clean">
@@ -24,27 +24,26 @@
     </thead>
 
     <tbody>
-        @foreach ($users as $user)
+        @foreach ($user as $user)
         <tr>
             <td>{{ $loop->iteration }}</td>
             <td>{{ $user->name }}</td>
             <td>{{ $user->email }}</td>
 
             <td>
-                @if($user->isAdmin())
+                @auth
                     Admin
                 @else
                     User
-                @endif
+                @endauth
             </td>
 
             <td>
                 {{-- Aksi hanya untuk admin --}}
-                @if(auth()->check() && auth()->user()->isAdmin())
+                @auth
 
                 <a href="{{ route('users.edit', $user->id) }}" class="btn-edit">Edit</a>
 
-                @if(auth()->user()->id !== $user->id) {{-- admin tidak boleh hapus dirinya sendiri --}}
                 <form action="{{ route('users.destroy', $user->id) }}"
                       method="POST"
                       style="display:inline-block"
@@ -54,9 +53,7 @@
 
                     <button type="submit" class="btn-delete">Hapus</button>
                 </form>
-                @endif
-
-                @endif
+                @endauth
             </td>
         </tr>
         @endforeach

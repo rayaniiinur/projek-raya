@@ -18,10 +18,19 @@ class IsAdmin
 
         // Jika bukan admin
         if ($user->role !== 'admin') {
-            return redirect()->route('dashboard')
+            return redirect()->route('tanah.index')
                 ->with('error', 'Akses ditolak. Hanya admin yang diperbolehkan.');
         }
 
         return $next($request);
+    }
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/login')->with('success', 'Anda telah logout.');
     }
 }

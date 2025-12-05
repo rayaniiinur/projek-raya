@@ -36,6 +36,37 @@
     font-size: 14px;
 }
 
+/* Alert Messages */
+.alert {
+    padding: 12px 14px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    border-left: 4px solid;
+}
+
+.alert-success {
+    background-color: #d1fae5;
+    color: #065f46;
+    border-left-color: #10b981;
+}
+
+.alert-danger {
+    background-color: #fee2e2;
+    color: #7f1d1d;
+    border-left-color: #ef4444;
+}
+
+.alert ul {
+    list-style-position: inside;
+    margin: 0;
+    padding: 0;
+}
+
+.alert li {
+    margin: 4px 0;
+}
+
 /* Input */
 .form-control-modern {
     width: 100%;
@@ -44,12 +75,17 @@
     border-radius: 10px;
     font-size: 15px;
     transition: 0.25s;
+    box-sizing: border-box;
 }
 
 .form-control-modern:focus {
     border-color: #8b5cf6; /* purple */
     box-shadow: 0 0 0 3px rgba(139,92,246,0.25);
     outline: none;
+}
+
+.form-control-modern.is-invalid {
+    border-color: #ef4444;
 }
 
 /* Button */
@@ -63,6 +99,7 @@
     color: white;
     font-weight: 600;
     transition: 0.25s;
+    cursor: pointer;
 }
 
 .btn-primary-modern:hover {
@@ -81,6 +118,7 @@
     color: #1E3A8A;
     background: transparent;
     transition: 0.25s;
+    cursor: pointer;
 }
 
 .btn-outline-modern:hover {
@@ -105,6 +143,7 @@
 .text-small a:hover {
     text-decoration: underline;
 }
+</style>
 </style>
 
 <div class="login-wrapper">
